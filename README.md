@@ -1,56 +1,96 @@
 Analisis Pengaruh Penggunaan TikTok terhadap IPK Mahasiswa
-Proyek ini merupakan studi statistik untuk menguji hubungan antara frekuensi penggunaan TikTok dan prestasi akademik (diukur dengan IPK) pada mahasiswa. Analisis dilakukan menggunakan R dengan pendekatan kuantitatif, mencakup transformasi data, uji asumsi statistik, regresi linear, serta validasi model.
+Studi statistik untuk menguji hubungan antara frekuensi penggunaan TikTok dan prestasi akademik mahasiswa menggunakan analisis regresi linear dan metode statistik robust.
+🎯 Tujuan Penelitian
 
-Tujuan Analisis
-Mengukur kekuatan dan arah hubungan antara durasi penggunaan TikTok dan IPK
+Mengukur kekuatan dan arah hubungan antara durasi penggunaan TikTok dengan IPK
 Menguji signifikansi statistik hubungan tersebut
-Memvalidasi model regresi linear berdasarkan asumsi klasik
-Memberikan interpretasi berbasis bukti untuk pengambilan keputusan akademik/pribadi
-Metodologi
-Transformasi Data
-Variabel kategorikal dikonversi ke numerik:
-IPK dikodekan sebagai titik tengah kategori (misal: 2,0–2,5 → 2,25)
-Frekuensi penggunaan TikTok dikuantifikasi dalam jam per hari (misal: 1–2 jam → 1,5 jam)
-Statistik Deskriptif
-Dilaporkan mean, standar deviasi, skewness, dan kurtosis untuk kedua variabel utama.
-Uji Normalitas
-Menggunakan Shapiro-Wilk dan Anderson-Darling untuk memeriksa distribusi data dan residual.
-Analisis Regresi Linear
-Model:
+Memvalidasi model regresi berdasarkan asumsi klasik
+Memberikan rekomendasi berbasis bukti untuk pengambilan keputusan akademik
 
-IPK = β₀ + β₁ × Frekuensi_TikTok + ε
+🛠️ Teknologi & Tools
+Platform: R (4.0+) | RStudio
+Libraries:
+rtidyverse    # Data manipulation & visualisasi
+nortest      # Uji normalitas (Anderson-Darling)
+moments      # Skewness & kurtosis
+lmtest       # Breusch-Pagan, Durbin-Watson
+car          # VIF untuk multikolinearitas
+📦 Instalasi
+r# Install semua dependencies
+install.packages(c("tidyverse", "nortest", "moments", "lmtest", "car"))
 
-Dilengkapi uji asumsi klasik:
-Normalitas residual (QQ-plot & uji formal)
-Homoskedastisitas (uji Breusch-Pagan)
-Autokorelasi (uji Durbin-Watson)
-Multikolinearitas (VIF < 10)
-Uji Korelasi & Hipotesis Non-Parametrik
-Korelasi Spearman (untuk hubungan monotonik)
-Uji Chi-square (untuk hubungan antar variabel kategorikal)
-Uji Mann-Whitney dan Wilcoxon sebagai robustness check
-Hasil Utama
-Model regresi signifikan (p < 0,001):
+# Set working directory
+setwd("path/to/project")
 
-IPK = 3,45 − 0,14 × Frekuensi_TikTok
+# Load data
+data <- read.csv("data_survei_tiktok.csv", header = TRUE)
+📊 Metodologi
+1. Transformasi Data
+Variabel kategorikal → numerik:
 
-Artinya, setiap peningkatan 1 jam/hari penggunaan TikTok berkaitan dengan penurunan rata-rata 0,14 poin IPK.
-Koefisien determinasi (R²) = 0,287:
-Model menjelaskan 28,7% variasi IPK; sisanya dipengaruhi oleh faktor lain (misal: motivasi, metode belajar, dukungan sosial).
-Korelasi Spearman ρ = −0,42 (p < 0,001):
-Menunjukkan hubungan negatif sedang yang konsisten, bahkan ketika asumsi normalitas tidak sepenuhnya terpenuhi.
-Uji Chi-square (p = 0,016):
-Terdapat hubungan signifikan antara kategori frekuensi TikTok dan distribusi IPK.
-Semua asumsi regresi linear terpenuhi:
-Residual terdistribusi normal
-Tidak ada heteroskedastisitas (BP p = 0,21)
-Tidak ada autokorelasi (DW = 1,93)
-Tidak ada multikolinearitas (VIF = 1,00)
-Kesimpulan
-Terdapat hubungan negatif yang signifikan secara statistik antara durasi penggunaan TikTok dan IPK mahasiswa. Temuan ini mendukung hipotesis bahwa penggunaan media sosial berlebihan dapat berdampak pada kinerja akademik, khususnya dalam konteks digital distraction dan alokasi waktu belajar.
+IPK: Titik tengah kategori (2,0–2,5 → 2,25 | 3,1–3,5 → 3,3)
+Frekuensi TikTok: Jam per hari (<1 jam → 0,5 | 1–2 jam → 1,5)
 
-Model ini dapat digunakan sebagai dasar untuk:
+2. Statistik Deskriptif
+Mean, SD, skewness, kurtosis untuk eksplorasi awal distribusi data.
+3. Uji Normalitas
 
-Intervensi konseling akademik berbasis data
-Sosialisasi digital wellness di lingkungan kampus
-Studi lanjutan dengan variabel kontrol (misal: jam tidur, partisipasi kelas)
+Shapiro-Wilk test: Untuk sampel kecil-sedang
+Anderson-Darling test: Lebih sensitif pada ekor distribusi
+
+4. Model Regresi Linear
+IPK = β₀ + β₁ × Frekuensi_TikTok + ε
+Uji Asumsi Klasik:
+
+✅ Normalitas residual (QQ-plot & Shapiro-Wilk)
+✅ Homoskedastisitas (Breusch-Pagan test)
+✅ Tidak ada autokorelasi (Durbin-Watson)
+✅ Tidak ada multikolinearitas (VIF < 10)
+
+5. Uji Robustness
+
+Spearman correlation: Untuk hubungan monotonik
+Chi-square test: Hubungan kategorikal
+Mann-Whitney & Wilcoxon: Non-parametrik alternatif
+
+📈 Hasil Utama
+Model Regresi (p < 0.001)
+IPK = 3.45 - 0.14 × Frekuensi_TikTok
+Interpretasi:
+Setiap peningkatan 1 jam/hari penggunaan TikTok berkorelasi dengan penurunan 0.14 poin IPK.
+Metrik Model
+IndikatorNilaiKesimpulanR²0.287Model menjelaskan 28.7% variasi IPKp-value< 0.001Hubungan signifikan secara statistikSpearman ρ-0.42Korelasi negatif sedangChi-squarep = 0.016Hubungan kategorikal signifikan
+Validasi Asumsi ✅
+
+Normalitas residual: Shapiro p = 0.123 ✓
+Homoskedastisitas: BP p = 0.21 ✓
+Autokorelasi: DW = 1.93 ✓
+Multikolinearitas: VIF = 1.00 ✓
+
+🎓 Kesimpulan & Implikasi
+Temuan Kunci
+Terdapat hubungan negatif signifikan antara durasi penggunaan TikTok dengan IPK mahasiswa. Model ini mendukung hipotesis bahwa penggunaan media sosial berlebihan dapat berdampak pada kinerja akademik melalui mekanisme:
+
+Digital distraction selama waktu belajar
+Berkurangnya alokasi waktu untuk tugas akademik
+Sleep deprivation akibat scroll berlebihan
+
+Keterbatasan
+
+R² = 28.7% menunjukkan 71.3% variasi IPK dijelaskan faktor lain (motivasi, metode belajar, dukungan keluarga, kesehatan mental)
+Data self-reported → potensi social desirability bias
+Cross-sectional study → tidak dapat menunjukkan kausalitas definitif
+
+Rekomendasi
+Untuk Mahasiswa:
+
+Batasi penggunaan TikTok <2 jam/hari
+Gunakan app timer atau digital wellbeing tools
+Prioritaskan jadwal belajar sebelum screen time
+
+Untuk Institusi:
+
+Implementasi program konseling akademik berbasis data
+Workshop digital wellness & time management
+Studi lanjutan dengan longitudinal design + variabel kontrol (jam tidur, partisipasi kelas, gaya belajar)
+
