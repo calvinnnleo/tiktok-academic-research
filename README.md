@@ -1,96 +1,123 @@
-Analisis Pengaruh Penggunaan TikTok terhadap IPK Mahasiswa
-Studi statistik untuk menguji hubungan antara frekuensi penggunaan TikTok dan prestasi akademik mahasiswa menggunakan analisis regresi linear dan metode statistik robust.
-🎯 Tujuan Penelitian
+# 📊 Analisis Pengaruh Penggunaan TikTok terhadap IPK Mahasiswa 🎓
 
-Mengukur kekuatan dan arah hubungan antara durasi penggunaan TikTok dengan IPK
-Menguji signifikansi statistik hubungan tersebut
-Memvalidasi model regresi berdasarkan asumsi klasik
-Memberikan rekomendasi berbasis bukti untuk pengambilan keputusan akademik
+[](https://www.r-project.org/)
+[](https://www.rstudio.com/)
+[](https://www.google.com/search?q=LICENSE)
 
-🛠️ Teknologi & Tools
-Platform: R (4.0+) | RStudio
-Libraries:
-rtidyverse    # Data manipulation & visualisasi
-nortest      # Uji normalitas (Anderson-Darling)
-moments      # Skewness & kurtosis
-lmtest       # Breusch-Pagan, Durbin-Watson
-car          # VIF untuk multikolinearitas
-📦 Instalasi
-r# Install semua dependencies
+Studi statistik ini menguji hubungan antara **frekuensi penggunaan aplikasi TikTok** dan **prestasi akademik (IPK) mahasiswa** menggunakan Analisis Regresi Linear.
+
+## 🎯 Tujuan Penelitian
+
+### Mengukur dan Menguji Hubungan
+
+  * Mengukur kekuatan dan arah hubungan antara durasi penggunaan TikTok dengan IPK.
+  * Menguji signifikansi statistik dari hubungan tersebut.
+
+### Validasi dan Rekomendasi
+
+  * Memvalidasi model regresi berdasarkan asumsi klasik.
+  * Memberikan rekomendasi berbasis bukti untuk pengambilan keputusan akademik.
+
+-----
+
+## 🛠️ Teknologi & Tools
+
+Proyek ini dikembangkan menggunakan **R (4.0+)** di lingkungan **RStudio**. Berikut adalah *libraries* yang digunakan:
+
+### Libraries Utama
+
+  * **`tidyverse`**: Manipulasi data dan visualisasi.
+  * **`nortest` & `moments`**: Uji normalitas (Anderson-Darling, Skewness & Kurtosis).
+  * **`lmtest`**: Uji asumsi regresi (Breusch-Pagan, Durbin-Watson).
+  * **`car`**: Uji multikolinearitas (VIF).
+
+### 📦 Instalasi
+
+```r
+# Install semua dependencies
 install.packages(c("tidyverse", "nortest", "moments", "lmtest", "car"))
 
-# Set working directory
-setwd("path/to/project")
+# Contoh pemuatan data
+# data <- read.csv("data_survei_tiktok.csv", header = TRUE)
+```
 
-# Load data
-data <- read.csv("data_survei_tiktok.csv", header = TRUE)
-📊 Metodologi
-1. Transformasi Data
-Variabel kategorikal → numerik:
+-----
 
-IPK: Titik tengah kategori (2,0–2,5 → 2,25 | 3,1–3,5 → 3,3)
-Frekuensi TikTok: Jam per hari (<1 jam → 0,5 | 1–2 jam → 1,5)
+## 📊 Metodologi
 
-2. Statistik Deskriptif
-Mean, SD, skewness, kurtosis untuk eksplorasi awal distribusi data.
-3. Uji Normalitas
+### 1\. Transformasi Data
 
-Shapiro-Wilk test: Untuk sampel kecil-sedang
-Anderson-Darling test: Lebih sensitif pada ekor distribusi
+Variabel kategorikal diubah menjadi nilai numerik representatif (titik tengah):
 
-4. Model Regresi Linear
-IPK = β₀ + β₁ × Frekuensi_TikTok + ε
-Uji Asumsi Klasik:
+  * **IPK**: Titik tengah kategori (misalnya, 3.1–3.5 $\rightarrow 3.3$).
+  * **Frekuensi TikTok**: Jam per hari (misalnya, \<1 jam $\rightarrow 0.5$; 1–2 jam $\rightarrow 1.5$).
 
-✅ Normalitas residual (QQ-plot & Shapiro-Wilk)
-✅ Homoskedastisitas (Breusch-Pagan test)
-✅ Tidak ada autokorelasi (Durbin-Watson)
-✅ Tidak ada multikolinearitas (VIF < 10)
+### 2\. Analisis Statistik
 
-5. Uji Robustness
+  * **Statistik Deskriptif**: Mean, SD, Skewness, Kurtosis.
+  * **Uji Normalitas**: Shapiro-Wilk dan Anderson-Darling.
 
-Spearman correlation: Untuk hubungan monotonik
-Chi-square test: Hubungan kategorikal
-Mann-Whitney & Wilcoxon: Non-parametrik alternatif
+### 3\. Model Regresi Linear
 
-📈 Hasil Utama
-Model Regresi (p < 0.001)
-IPK = 3.45 - 0.14 × Frekuensi_TikTok
-Interpretasi:
-Setiap peningkatan 1 jam/hari penggunaan TikTok berkorelasi dengan penurunan 0.14 poin IPK.
-Metrik Model
-IndikatorNilaiKesimpulanR²0.287Model menjelaskan 28.7% variasi IPKp-value< 0.001Hubungan signifikan secara statistikSpearman ρ-0.42Korelasi negatif sedangChi-squarep = 0.016Hubungan kategorikal signifikan
-Validasi Asumsi ✅
+Model digunakan: $IPK = \beta₀ + \beta₁ \times Frekuensi\_TikTok + \varepsilon$.
 
-Normalitas residual: Shapiro p = 0.123 ✓
-Homoskedastisitas: BP p = 0.21 ✓
-Autokorelasi: DW = 1.93 ✓
-Multikolinearitas: VIF = 1.00 ✓
+#### Validasi Asumsi Klasik
 
-🎓 Kesimpulan & Implikasi
-Temuan Kunci
-Terdapat hubungan negatif signifikan antara durasi penggunaan TikTok dengan IPK mahasiswa. Model ini mendukung hipotesis bahwa penggunaan media sosial berlebihan dapat berdampak pada kinerja akademik melalui mekanisme:
+  * **Normalitas residual** (QQ-plot & Shapiro-Wilk).
+  * **Homoskedastisitas** (Breusch-Pagan test).
+  * **Tidak ada autokorelasi** (Durbin-Watson test).
+  * **Tidak ada multikolinearitas** ($VIF < 10$).
 
-Digital distraction selama waktu belajar
-Berkurangnya alokasi waktu untuk tugas akademik
-Sleep deprivation akibat scroll berlebihan
+### 4\. Uji Robustness
 
-Keterbatasan
+Menggunakan **Spearman Correlation** dan **Chi-square test** untuk memvalidasi temuan dengan metode non-parametrik.
 
-R² = 28.7% menunjukkan 71.3% variasi IPK dijelaskan faktor lain (motivasi, metode belajar, dukungan keluarga, kesehatan mental)
-Data self-reported → potensi social desirability bias
-Cross-sectional study → tidak dapat menunjukkan kausalitas definitif
+-----
 
-Rekomendasi
-Untuk Mahasiswa:
+## 📈 Hasil Utama
 
-Batasi penggunaan TikTok <2 jam/hari
-Gunakan app timer atau digital wellbeing tools
-Prioritaskan jadwal belajar sebelum screen time
+### Model Regresi
 
-Untuk Institusi:
+Analisis menemukan hubungan yang **sangat signifikan** ($p < 0.001$):
+$$IPK = 3.45 - 0.14 \times Frekuensi\_TikTok$$
 
-Implementasi program konseling akademik berbasis data
-Workshop digital wellness & time management
-Studi lanjutan dengan longitudinal design + variabel kontrol (jam tidur, partisipasi kelas, gaya belajar)
+#### Interpretasi
 
+Setiap peningkatan **1 jam per hari** dalam penggunaan TikTok berkorelasi dengan penurunan rata-rata **IPK sebesar 0.14 poin**.
+
+### Metrik Kinerja Model
+
+  * **Nilai $R^2$**: **0.287**
+      * **Interpretasi**: Model menjelaskan **28.7%** dari variasi IPK.
+  * **$p$-value Model**: **$< 0.001$**
+      * **Interpretasi**: Hubungan ini signifikan secara statistik.
+  * **Korelasi Spearman ($\rho$)**: **$-0.42$** (Korelasi negatif sedang).
+  * **Chi-square test**: **$p = 0.016$** (Hubungan kategorikal signifikan).
+
+### Validasi Asumsi Klasik ✅
+
+Semua asumsi model regresi linear terpenuhi, menjamin validitas model:
+
+  * **Normalitas Residual**: Shapiro $p = 0.123$ ($\checkmark$).
+  * **Homoskedastisitas**: Breusch-Pagan $p = 0.21$ ($\checkmark$).
+  * **Autokorelasi**: Durbin-Watson $DW = 1.93$ ($\checkmark$).
+  * **Multikolinearitas**: VIF $= 1.00$ ($\checkmark$).
+
+-----
+
+## 🎓 Kesimpulan & Implikasi
+
+### Temuan Kunci
+
+Terdapat **hubungan negatif signifikan** antara durasi penggunaan TikTok dan kinerja akademik mahasiswa. Dampak ini terkait dengan *digital distraction*, berkurangnya waktu belajar, dan *sleep deprivation*.
+
+### Keterbatasan
+
+  * **$R^2$ Rendah**: Mayoritas (71.3%) variasi IPK dijelaskan oleh faktor lain (misalnya, motivasi, kesehatan mental).
+  * **Studi *Cross-sectional***: Hanya membuktikan **korelasi**, bukan kausalitas definitif.
+
+### Rekomendasi
+
+  * **Untuk Mahasiswa**: Batasi penggunaan TikTok **$< 2$ jam/hari**.
+  * **Untuk Institusi**: Implementasikan program **konseling akademik** dan ***workshop* digital wellness** berbasis data.
+  * **Studi Lanjutan**: Disarankan desain **longitudinal** untuk menguji kausalitas dan memasukkan variabel kontrol seperti jam tidur dan gaya belajar.
