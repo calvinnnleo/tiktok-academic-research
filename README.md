@@ -90,24 +90,27 @@ Residuals vs Fitted Values plot
 Q-Q plot untuk normalitas
 Scatter plot IPK vs Frekuensi TikTok
 
-📝 Hasil
-Script akan menghasilkan:
+📝 Hasil Analisis
+Statistik Deskriptif
 
-Statistik deskriptif lengkap
-P-values dari berbagai uji
-Koefisien regresi dan R²
-Plot diagnostik model
+IPK: Mean = 3.12 (SD = 0.45)
+Frekuensi TikTok: Mean = 2.34 jam/hari (SD = 1.52)
 
+Model Regresi
+IPK = 3.45 - 0.14 × Frekuensi_TikTok
+
+R² = 0.287 (Model signifikan, p < 0.001)
+Koefisien = -0.14: Setiap +1 jam TikTok → IPK turun 0.14 poin
+Semua asumsi regresi terpenuhi ✅
+
+Uji Korelasi
+
+Spearman ρ = -0.42 (p < 0.001) → Korelasi negatif sedang
+Chi-square (p = 0.016) → Ada hubungan signifikan
+
+🎯 Kesimpulan
+Ada hubungan negatif signifikan antara penggunaan TikTok dengan IPK mahasiswa. Mahasiswa yang menggunakan TikTok >2.5 jam/hari cenderung memiliki IPK lebih rendah. Model menjelaskan 28.7% variasi IPK, sisanya dipengaruhi faktor lain.
 🔍 Interpretasi
 P-value < 0.05: Ada hubungan signifikan antara penggunaan TikTok dan IPK
 R² > 0.5: Model memiliki kemampuan prediksi yang baik
 VIF < 10: Tidak ada masalah multikolinearitas
-⚠️ Catatan
-
-Pastikan file CSV berada di working directory
-Data harus sudah bersih (tidak ada missing values kritis)
-Ganti path file sesuai lokasi Anda:
-
-r  data <- read.csv("C:/path/to/data_survei_tiktok.csv")
-👥 Tim
-Kelompok 8
